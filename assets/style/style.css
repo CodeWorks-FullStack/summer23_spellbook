@@ -1,0 +1,6 @@
+/* BASIC STYLES HERE */
+
+ul{
+  max-height: 78vh;
+  overflow-y: auto;
+}
