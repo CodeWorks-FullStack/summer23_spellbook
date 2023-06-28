@@ -4,6 +4,8 @@ export class Spell {
 
     this.name = data.name
 
+    this.prepared = data.prepared || false
+
     this.description = data.description || data.desc.join('\n')
 
     this.range = data.range
@@ -38,7 +40,10 @@ export class Spell {
 
   get MySpellListItemTemplate() {
     return `
-    <li onclick="app.SandboxSpellsController.setActiveSpell('${this.id}')" class="mb-2 selectable fs-4" role="button">${this.name}</li>
+     <li class="mb-2 fs-4">
+        <input ${this.prepared ? 'checked' : ''} onchange="app.SandboxSpellsController.toggleSpellPreparation('${this.id}')" type="checkbox" id="spellPreparation">
+        <span class="selectable" onclick="app.SandboxSpellsController.setActiveSpell('${this.id}')" role="button">${this.name}</span> 
+      </li>
     `
   }
 }

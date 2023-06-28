@@ -3,6 +3,7 @@ import { Spell } from "../models/Spell.js";
 import { dndApi } from "./AxiosService.js"
 
 class SpellsService {
+
   async getSpellDetails(spellIndex) {
     const res = await dndApi.get(`api/spells/${spellIndex}`)
     console.log('got spell details', res.data);

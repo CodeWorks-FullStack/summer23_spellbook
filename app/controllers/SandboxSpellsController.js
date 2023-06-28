@@ -1,7 +1,8 @@
 import { AppState } from "../AppState.js";
 import { sandboxSpellsService } from "../services/SandboxSpellsService.js";
+import { spellsService } from "../services/SpellsService.js";
 import { Pop } from "../utils/Pop.js";
-import { setHTML } from "../utils/Writer.js";
+import { setHTML, setText } from "../utils/Writer.js";
 
 function _drawMySpells() {
   let mySpellListElem = document.getElementById('mySpellList')
@@ -16,6 +17,14 @@ function _drawMySpells() {
   let template = ''
 
   mySpells.forEach(spell => template += spell.MySpellListItemTemplate)
+
+
+  setText('spellCount', mySpells.length)
+
+  // const preparedSpells = mySpells.filter(spell => spell.prepared == true)
+  const preparedSpells = mySpells.filter(spell => spell.prepared)
+
+  setText('preparedSpellCount', preparedSpells.length)
 
   mySpellListElem.innerHTML = template
 }
@@ -36,6 +45,8 @@ function _drawMyActiveSpell() {
 export class SandboxSpellsController {
   constructor () {
     console.log('sandbox controller loaded');
+    _drawMySpells()
+
 
     // NOTE 401 unauthorized
     // this.getMySpells()
@@ -43,6 +54,9 @@ export class SandboxSpellsController {
     AppState.on('account', this.getMySpells)
     AppState.on('mySpells', _drawMySpells)
     AppState.on('activeSpell', _drawMyActiveSpell)
+  }
+  setActiveSpell(spellId) {
+    sandboxSpellsService.setActiveSpell(spellId)
   }
 
   async createSpell() {
@@ -63,7 +77,15 @@ export class SandboxSpellsController {
     }
   }
 
-  setActiveSpell(spellId) {
-    sandboxSpellsService.setActiveSpell(spellId)
+  async toggleSpellPreparation(spellId) {
+    try {
+      await sandboxSpellsService.toggleSpellPreparation(spellId)
+    } catch (error) {
+      console.error(error);
+      Pop.error(error.message)
+    }
   }
+
+
+
 }

@@ -5,6 +5,7 @@ import { SpellsController } from "./controllers/SpellsController.js";
 import { ValuesController } from "./controllers/ValuesController.js";
 import { AboutView } from "./views/AboutView.js";
 import { DnDSpellsView } from "./views/DnDSpellsView.js";
+import { SandboxSpellsView } from "./views/SandboxSpellsView.js";
 
 /**
  * Register your routes for the application here
@@ -24,7 +25,7 @@ export const router = [
   {
     path: '#/mySpells',
     controller: SandboxSpellsController,
-    view: ''
+    view: SandboxSpellsView
   },
 ]
 
