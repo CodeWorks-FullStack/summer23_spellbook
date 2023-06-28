@@ -5,24 +5,24 @@ import { Pop } from "../utils/Pop.js";
 import { setHTML, setText } from "../utils/Writer.js";
 
 function _drawMySpells() {
-  let mySpellListElem = document.getElementById('mySpellList')
+  const mySpellListElem = document.getElementById('mySpellList')
 
   if (!mySpellListElem) {
     return
   }
 
 
-  let mySpells = AppState.mySpells
+  const mySpells = AppState.mySpells
 
   let template = ''
 
   mySpells.forEach(spell => template += spell.MySpellListItemTemplate)
 
-
-  setText('spellCount', mySpells.length)
-
   // const preparedSpells = mySpells.filter(spell => spell.prepared == true)
   const preparedSpells = mySpells.filter(spell => spell.prepared)
+
+
+  setText('spellCount', mySpells.length)
 
   setText('preparedSpellCount', preparedSpells.length)
 
